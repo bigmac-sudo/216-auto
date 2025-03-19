@@ -42,16 +42,16 @@ public class RobotContainer {
     double wristError = Math.abs(currWristPos - wTarget);
     double armError = Math.abs(currArmPos - aTarget);
     double elevError = Math.abs(currElevPos - eTarget);
-       wTarget = wristPos[4];
-      aTarget = armPos[0];
-      eTarget = elevatorPos[3];
+    wTarget = wristPos[4];
+    aTarget = armPos[0];
+    eTarget = elevatorPos[3];
     private final Encoder elevatorEncoder = new Encoder(3, 4, false, Encoder.EncodingType.k2X);//normally 4,5
     //absolute encoder
     private final DutyCycleEncoder wristEncoder = new DutyCycleEncoder(5, 4.0, 0.0);
     private final DutyCycleEncoder skullcrushEncoder = new DutyCycleEncoder(9,4.0,0.0);
 
 
-    NamedCommands.registerCommand("Score Algae L4", Commands.runOnce(() ->{
+    NamedCommands.registerCommand("L4", Commands.runOnce(() ->{
         
     if(wTarget - .02 > currWristPos){
       Wrist.set(wristError * kPWrist);
@@ -61,9 +61,7 @@ public class RobotContainer {
       Wrist.stopMotor();
     }
 
-    if (driver.getRawButton(PS4Controller.Button.kCross.value)){
-      elevatorMotor.set(-.3);
-    } else if(eTarget - 25 > currElevPos){
+    if(eTarget - 25 > currElevPos){
       elevatorMotor.set(-elevError * kPElevator); //up
     } else if(eTarget + 25 < currElevPos){
       elevatorMotor.set(elevError * kPElevator); //down
@@ -78,9 +76,6 @@ public class RobotContainer {
     } else {
       Skullcrusher.set(.15);
     }
-
-
-
 }));
 
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
