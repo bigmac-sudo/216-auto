@@ -30,6 +30,7 @@ public class Scoring extends SubsystemBase {
     Spark Wrist = new Spark(9);
     Spark Skullcrusher = new Spark(7);
     Spark Piranha = new Spark(8);
+    SparkMax elevatorMotor = new SparkMax(15,MotorType.kBrushless);
     //P values
     double kPWrist = 1;
     double kPArm = 2.8;
@@ -39,7 +40,7 @@ public class Scoring extends SubsystemBase {
     //absolute encoder
     private final DutyCycleEncoder wristEncoder = new DutyCycleEncoder(5, 4.0, 0.0);
     private final DutyCycleEncoder skullcrushEncoder = new DutyCycleEncoder(9,4.0,0.0);
-    elevatorMotor = new SparkMax(15,MotorType.kBrushless);
+ 
     SparkMaxConfig globalConfig = new SparkMaxConfig();
     globalConfig.smartCurrentLimit(50).idleMode(IdleMode.kBrake);
     elevatorMotor.configure(globalConfig,ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
