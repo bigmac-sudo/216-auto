@@ -171,6 +171,7 @@ public class Robot extends TimedRobot {
     } 
     elevatorEncoder.reset();
     scoringSubsystem.Activated(false);
+    scoringSubsystem.StopAll();
    }
 
   @Override
