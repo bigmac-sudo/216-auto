@@ -44,6 +44,15 @@ public class Scoring extends SubsystemBase {
         eTarget = elevatorPos[3];
     }
 
+    public void StopAll() {
+        //safety measure if auton is finished
+        Wrist.stopMotor();
+        Piranha.stopMotor();
+        elevatorMotor.stopMotor();
+        Skullcrusher.set(.15);
+    }
+    
+
     public void Activated(boolean isEnabled) {
         scoringEnabled = isEnabled;
         SmartDashboard.putBoolean("Auton Status:", scoringEnabled);
@@ -53,7 +62,9 @@ public class Scoring extends SubsystemBase {
         wTarget = wristPos[1];
         aTarget = armPos[0];
         eTarget = elevatorPos[0];
-        Piranha.set(.50);
+        if (scoringEnabled) {
+                   Piranha.set(.50); 
+        }
     }
     public void releaseCoral() {
         Piranha.set(-.5);
@@ -91,6 +102,6 @@ public class Scoring extends SubsystemBase {
                     Skullcrusher.set(kPArm * armError);
                 } else {
                     Skullcrusher.set(.15);
-        }
+        }  
     }
 }
