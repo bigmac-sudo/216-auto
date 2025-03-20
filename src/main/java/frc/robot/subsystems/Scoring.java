@@ -89,8 +89,6 @@ public class Scoring extends SubsystemBase {
                     Skullcrusher.set(kPArm * armError);
                 } else {
                     Skullcrusher.set(.15);
-        } else {
-            return;
         }
     }
 }
