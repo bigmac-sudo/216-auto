@@ -53,7 +53,7 @@ public class RobotContainer {
             NamedCommands.registerCommand("RecieveCoral", Commands.runOnce()) ->{
                 //code goes here
             }));
-        autoChooser = AutoBuilder.buildAutoChooser("Tests");
+        autoChooser = AutoBuilder.buildAutoChooser();
         SmartDashboard.putData("Auto Mode", autoChooser);
 
         configureBindings();
