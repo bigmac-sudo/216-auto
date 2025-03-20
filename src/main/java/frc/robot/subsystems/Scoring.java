@@ -13,6 +13,8 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.DutycycleEncoder;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class Scoring extends SubsystemBase {
     boolean scoringEnabled = false;
@@ -37,6 +39,11 @@ public class Scoring extends SubsystemBase {
     //absolute encoder
     private final DutyCycleEncoder wristEncoder = new DutyCycleEncoder(5, 4.0, 0.0);
     private final DutyCycleEncoder skullcrushEncoder = new DutyCycleEncoder(9,4.0,0.0);
+    elevatorMotor = new SparkMax(15,MotorType.kBrushless);
+    SparkMaxConfig globalConfig = new SparkMaxConfig();
+    globalConfig.smartCurrentLimit(50).idleMode(IdleMode.kBrake);
+    elevatorMotor.configure(globalConfig,ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
+
 
     public void L4Raise() {
         wTarget = wristPos[4];
