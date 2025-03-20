@@ -79,10 +79,6 @@ public class Robot extends TimedRobot {
     private final DutyCycleEncoder skullcrushEncoder = new DutyCycleEncoder(9,4.0,0.0);
     private final DutyCycleEncoder algaeEncoder = new DutyCycleEncoder(1, 4.0, 1.0);
     //auton selector
-    private static final String kDefaultAuto = "Default";
-    private static final String kCustomAuto = "My Auto";
-    private String m_autoSelected;
-    private final SendableChooser<String> m_chooser = new SendableChooser<>();
   private Command m_autonomousCommand;
   // private final Joystick operator = new Joystick(0);
   // private final Joystick driver = new Joystick(1);
@@ -147,22 +143,22 @@ public class Robot extends TimedRobot {
     //     // Put default auto code here
     //     break;
     // }
-    double currWristPos = wristEncoder.get();
-    double wristError = Math.abs(currWristPos - wTarget);
+    // double currWristPos = wristEncoder.get();
+    // double wristError = Math.abs(currWristPos - wTarget);
 
-    if(timer.get() > 2 && timer.get() < 5){
-      wTarget = wristPos[3];
-    } else {
-      wTarget = wristPos[0];
-    }
+    // if(timer.get() > 2 && timer.get() < 5){
+    //   wTarget = wristPos[3];
+    // } else {
+    //   wTarget = wristPos[0];
+    // }
 
-    if(wTarget - .05 > currWristPos){
-      Wrist.set(wristError * kPWrist / 2);
-    } else if (wTarget + .05 < currWristPos){
-      Wrist.set(-wristError * kPWrist / 2);
-    } else {
-      Wrist.stopMotor();
-    }
+    // if(wTarget - .05 > currWristPos){
+    //   Wrist.set(wristError * kPWrist / 2);
+    // } else if (wTarget + .05 < currWristPos){
+    //   Wrist.set(-wristError * kPWrist / 2);
+    // } else {
+    //   Wrist.stopMotor();
+    // }
   }
 
   @Override
@@ -305,30 +301,6 @@ public class Robot extends TimedRobot {
     } else {
       AlgaeArm.stopMotor();
     }
-
-
-
-    // if (operator.getRawButton(PS4Controller.Button.kSquare.value)){
-    // if (wristtTimer.get() < .3){
-    //   if (starttimer){
-    //     wristlevel = 1;
-    //     wristtTimer.start();
-    //     starttimer = false;
-        
-    //    } Wrist.set(.25);
-    //   // } else if (wristtTimer.get() >= 1 && wristtTimer.get() < 1.5){
-    //   //   Wrist.set(.15);
-    //   // }
-    // }
-    // if (wristlevel == 1){
-    //   if (wristtTimer.get() < .21 && starttimer == true){
-    //     starttimer = false;
-    //     Wrist.set(.25);
-    //   } else{
-    //     Wrist.set(-.05);
-    //   }
-    // }
-
     // if (wTarget - .1 > currWirstPos){
     //   Wrist.set(.3);
     // } else if(wTarget + .1 < currWirstPos){
@@ -367,30 +339,6 @@ public class Robot extends TimedRobot {
   //     Wrist.set(pid.calculate(wristEncoder.get(), 0.15));
   // }
     
-   // arm pos 1
-    // if (operator.getRawButton(PS4Controller.Button.kTriangle.value)){
-    //   if (  < .1 ) {
-    //     Wrist.set(.85);
-    // } else if (offsetValueEncoderWrist > .13) {
-    //     Wrist.set(.2);
-    // } else if (offsetValueEncoderWrist > .135 && offsetValueEncoderWrist < .145) {
-    //     Wrist.set(0.05);
-    // }
-    //   if (elevatorEncoder.get() < 1000){
-    //     elevatorMotor.set(-.5); //elevator is opposite for whatever reason
-    //   }else if (elevatoreEncoder.get() > 1200){
-    //     elevatorMotor.set(-.25);
-    //   } else if (elevatoreEncoder.get() >1000 && elevatoreEncoder.get() < 1400){
-    //     elevatorMotor.set(.05);
-    //   }
-    //   if (skullcrushEncoder.get() < .3){
-    //     Skullcrusher.set(.75);
-    //   }else if (skullcrushEncoder.get() > .45){
-    //     Skullcrusher.set(.4);
-    //   } else if (skullcrushEncoder.get() > .6){
-    //     Skullcrusher.set(.18);
-    //   }
-    // }
 //elevator buttons
         
 // if (operator.getRawButton(PS4Controller.Button.kL1.value)) {
