@@ -11,6 +11,7 @@ import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.subsystems.Scoring;
 // import com.revrobotics.spark.SparkMax;
 // import com.revrobotics.spark.SparkBase;
 // import com.revrobotics.spark.SparkFlex;
@@ -39,6 +40,7 @@ import edu.wpi.first.math.controller.PIDController;
 
 
 public class Robot extends TimedRobot {
+  private final Scoring scoringSubsystem = new Scoring();
   boolean starttimer = false;
   int wristlevel = 0;
   Timer timer = new Timer();
@@ -172,6 +174,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel(); 
     } 
     elevatorEncoder.reset();
+    scoringSubsystem.Activated(false);
    }
 
   @Override
