@@ -42,7 +42,6 @@ public class Scoring extends SubsystemBase {
         wTarget = wristPos[4];
         aTarget = armPos[0];
         eTarget = elevatorPos[3];
-        Piranha.set(-.50);
     }
 
     public void Activated(boolean isEnabled) {
@@ -55,6 +54,9 @@ public class Scoring extends SubsystemBase {
         aTarget = armPos[0];
         eTarget = elevatorPos[0];
         Piranha.set(.50);
+    }
+    public void releaseCoral() {
+        Piranha.set(-.5);
     }
 
     @Override
