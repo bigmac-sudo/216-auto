@@ -21,12 +21,7 @@ import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 public class RobotContainer {
-<<<<<<< HEAD
     private final Scoring scoringSubsystem = new Scoring();
-
-
-=======
->>>>>>> 43098efee3dac7c5165e59e4c282e495450009aa
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
      private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
@@ -48,18 +43,15 @@ public class RobotContainer {
 
     public RobotContainer() {
             NamedCommands.registerCommand("L4", Commands.runOnce(() ->{
-<<<<<<< HEAD
                 scoringSubsystem.Activated(true);
                 scoringSubsystem.l4Raise();
 }));
             NamedCommands.registerCommand("Loading", Commands.runOnce()) ->{
                 scoringSubsystem.Loading();
-=======
                 //Code goes here 
 }));
             NamedCommands.registerCommand("RecieveCoral", Commands.runOnce()) ->{
                 //code goes here
->>>>>>> 43098efee3dac7c5165e59e4c282e495450009aa
             }));
         autoChooser = AutoBuilder.buildAutoChooser("Tests");
         SmartDashboard.putData("Auto Mode", autoChooser);
