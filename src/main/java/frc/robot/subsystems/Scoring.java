@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.DutycycleEncoder;
 
 public class Scoring extends SubsystemBase {
-    boolean Scoringenabled = false;
+    boolean scoringEnabled = false;
     //macro positions
     double[] armPos = {2.55, 2.85, 2.7};
     double[] wristPos = {1.2, 1.85, 2.25, 2.4, 2.5};
@@ -42,23 +42,25 @@ public class Scoring extends SubsystemBase {
         wTarget = wristPos[4];
         aTarget = armPos[0];
         eTarget = elevatorPos[3];
+        Piranha.set(-.50);
     }
 
     public void Activated(boolean isEnabled) {
-        Scoringenabled = isEnabled;
-        SmartDashboard.putBoolean("Auton Status:", Scoringenabled);
+        scoringEnabled = isEnabled;
+        SmartDashboard.putBoolean("Auton Status:", scoringEnabled);
     }
 
     public void Loading() {
         wTarget = wristPos[1];
         aTarget = armPos[0];
         eTarget = elevatorPos[0];
+        Piranha.set(.50);
     }
 
     @Override
     public void periodic() {
 
-        if (Scoringenabled) { //checks if auton is enabled
+        if (scoringEnabled) { //checks if auton is enabled
             //only do calculations if auton is enabled
                 double currWristPos = wristEncoder.get();
                 double currArmPos = skullcrushEncoder.get();
