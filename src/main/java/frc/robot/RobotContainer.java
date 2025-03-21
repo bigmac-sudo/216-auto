@@ -50,8 +50,8 @@ public class RobotContainer {
                 scoringSubsystem.Loading();
                 //Code goes here 
 }));
-            NamedCommands.registerCommand("RecieveCoral", Commands.runOnce()) ->{
-                //code goes here
+            NamedCommands.registerCommand("releaseCoral", Commands.runOnce()) ->{
+                scoringSubsystem.release
             }));
         autoChooser = AutoBuilder.buildAutoChooser();
         SmartDashboard.putData("Auto Mode", autoChooser);
