@@ -13,9 +13,11 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.DutycycleEncoder;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 public class Scoring extends SubsystemBase {
-    boolean Scoringenabled = false;
+    boolean scoringEnabled = false;
     //macro positions
     double[] armPos = {2.55, 2.85, 2.7};
     double[] wristPos = {1.2, 1.85, 2.25, 2.4, 2.5};
@@ -28,6 +30,7 @@ public class Scoring extends SubsystemBase {
     Spark Wrist = new Spark(9);
     Spark Skullcrusher = new Spark(7);
     Spark Piranha = new Spark(8);
+    SparkMax elevatorMotor = new SparkMax(15,MotorType.kBrushless);
     //P values
     double kPWrist = 1;
     double kPArm = 2.8;
@@ -37,6 +40,11 @@ public class Scoring extends SubsystemBase {
     //absolute encoder
     private final DutyCycleEncoder wristEncoder = new DutyCycleEncoder(5, 4.0, 0.0);
     private final DutyCycleEncoder skullcrushEncoder = new DutyCycleEncoder(9,4.0,0.0);
+ 
+    SparkMaxConfig globalConfig = new SparkMaxConfig();
+    globalConfig.smartCurrentLimit(50).idleMode(IdleMode.kBrake);
+    elevatorMotor.configure(globalConfig,ResetMode.kResetSafeParameters,PersistMode.kPersistParameters);
+
 
     public void L4Raise() {
         wTarget = wristPos[4];
@@ -44,21 +52,36 @@ public class Scoring extends SubsystemBase {
         eTarget = elevatorPos[3];
     }
 
+    public void StopAll() {
+        //safety measure if auton is finished
+        Wrist.stopMotor();
+        Piranha.stopMotor();
+        elevatorMotor.stopMotor();
+        Skullcrusher.set(.15);
+    }
+    
+
     public void Activated(boolean isEnabled) {
-        Scoringenabled = isEnabled;
-        SmartDashboard.putBoolean("Auton Status:", Scoringenabled);
+        scoringEnabled = isEnabled;
+        SmartDashboard.putBoolean("Auton Status:", scoringEnabled);
     }
 
     public void Loading() {
         wTarget = wristPos[1];
         aTarget = armPos[0];
         eTarget = elevatorPos[0];
+        if (scoringEnabled) {
+                   Piranha.set(.50); 
+        }
+    }
+    public void releaseCoral() {
+        Piranha.set(-.5);
     }
 
     @Override
     public void periodic() {
 
-        if (Scoringenabled) { //checks if auton is enabled
+        if (scoringEnabled) { //checks if auton is enabled
             //only do calculations if auton is enabled
                 double currWristPos = wristEncoder.get();
                 double currArmPos = skullcrushEncoder.get();
@@ -87,8 +110,6 @@ public class Scoring extends SubsystemBase {
                     Skullcrusher.set(kPArm * armError);
                 } else {
                     Skullcrusher.set(.15);
-        } else {
-            return;
-        }
+        }  
     }
 }
