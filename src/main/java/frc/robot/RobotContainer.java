@@ -5,6 +5,7 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 import frc.robot.subsystems.Scoring;
+import frc.robot.subsystems.limelight;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
@@ -20,8 +21,10 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
+
 public class RobotContainer {
     private final Scoring scoringSubsystem = new Scoring();
+      private final limelight Limelight = new limelight()
     private double MaxSpeed = TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
     
@@ -87,6 +90,29 @@ public class RobotContainer {
         joystick.L1().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
 
         drivetrain.registerTelemetry(logger::telemeterize);
+        //limelight stuff
+        NamedCommands.registerCommand("MoveRight1M", Commands.runOnce(() -> {
+            drivetrain.applyRequest(() -> drive.withVelocityY(-0.2 * MaxSpeed));
+        }));
+
+        // Move Left 1 meter at 50% speed
+        NamedCommands.registerCommand("MoveLeft1M", Commands.runOnce(() -> {
+            drivetrain.applyRequest(() -> drive.withVelocityY(0.2 * MaxSpeed));
+        }));
+
+        // Move Forward 1 meter at 50% speed
+        NamedCommands.registerCommand("MoveForward1M", Commands.runOnce(() -> {
+            drivetrain.applyRequest(() -> drive.withVelocityX(0.2 * MaxSpeed));
+        }));
+
+        // Move Backward 1 meter at 50% speed
+        NamedCommands.registerCommand("MoveBackward1M", Commands.runOnce(() -> {
+            drivetrain.applyRequest(() -> drive.withVelocityX(-0.2 * MaxSpeed));
+        }));
+
+        NamedCommands.registerCommand("StopMovement", Commands.runOnce(() -> {
+            drivetrain.applyRequest(() -> drive.withVelocityX(0).withVelocityY(0));
+    }));
     }
 
     public Command getAutonomousCommand() {

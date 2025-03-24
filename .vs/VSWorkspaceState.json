@@ -5,12 +5,12 @@
     "\\src\\main",
     "\\src\\main\\deploy",
     "\\src\\main\\deploy\\pathplanner",
-    "\\src\\main\\deploy\\pathplanner\\autos",
     "\\src\\main\\java",
     "\\src\\main\\java\\frc",
     "\\src\\main\\java\\frc\\robot",
-    "\\src\\main\\java\\frc\\robot\\generated"
+    "\\src\\main\\java\\frc\\robot\\generated",
+    "\\src\\main\\java\\frc\\robot\\subsystems"
   ],
-  "SelectedNode": "\\src\\main\\deploy\\pathplanner\\autos\\RedAutoMiddle.auto",
+  "SelectedNode": "\\src\\main\\java\\frc\\robot\\RobotContainer.java",
   "PreviewInSolutionExplorer": false
 }

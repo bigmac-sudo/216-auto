@@ -35,12 +35,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.math.controller.PIDController;
-
+import frc.robot.subsystems.limelight;
 
 
 
 public class Robot extends TimedRobot {
   private final Scoring scoringSubsystem = new Scoring();
+  private final limelight Limelight = new limelight();
   boolean starttimer = false;
   int wristlevel = 0;
   Timer timer = new Timer();
@@ -72,6 +73,7 @@ public class Robot extends TimedRobot {
   double kP = 0.1;
   double Ki = 0;
   double Kd = 0;
+  double isEnabled = false;
   //encoders
     private final Encoder elevatorEncoder = new Encoder(3, 4, false, Encoder.EncodingType.k2X);//normally 4,5
     //absolute encoder
@@ -176,6 +178,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopPeriodic() {
+
     // double currArmPos = skullcrushEncoder.get();
     // double currWirstPos = wristEncoder.get();
     double currAlgaePos = algaeEncoder.get();
@@ -189,7 +192,31 @@ public class Robot extends TimedRobot {
     // System.out.println(skullcrushEncoder.get());
     // System.out.println(skullcrushEncoder.isConnected());
     // System.out.println(armError);
-
+     if (driver.getPOV() == 270) {
+         isEnabled = true;
+    }
+    if (driver.getPOV() == 90){
+        isEnabled = false;
+    }
+if (limeLight.hasTarget()) {
+    if (limeLight.getYOffset() <= 5 && limeLight.getYOffset() >= -5 
+        && limeLight.getXOffset() < 5 && limeLight.getXOffset() > -5) {
+        NamedCommands.getCommand("StopMovement").schedule();  // Stop all actions
+        isEnabled = false;
+    }
+     if (limeLight.getYOffset() >= 5) {
+        NamedCommands.getCommand("MoveBackward1M").schedule();  // Schedule move backward
+    }
+     else if (limeLight.getYOffset() <= -5) {
+        NamedCommands.getCommand("MoveForward1M").schedule();  // Schedule move forward
+    }
+     if (limeLight.getXOffset() >= 5) {
+        NamedCommands.getCommand("MoveRight1M").schedule();  // Schedule move right
+    }
+     else if (limeLight.getXOffset() <= -5) {
+        NamedCommands.getCommand("MoveLeft1M").schedule();  // Schedule move left
+    }
+}
     //torquer
     if (driver.getRawButton(PS4Controller.Button.kCircle.value)){
       Torquer.set(.25);
