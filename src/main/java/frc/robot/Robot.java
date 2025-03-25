@@ -89,7 +89,7 @@ public class Robot extends TimedRobot {
   PIDController pid = new PIDController(kP, Ki, Kd);
 
   public Robot() {
-    //elevatorEncoder.reset();
+    elevatorEncoder.reset();
     m_robotContainer = new RobotContainer();
     elevatorMotor = new SparkMax(15,MotorType.kBrushless);
     SparkMaxConfig globalConfig = new SparkMaxConfig();
@@ -171,7 +171,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel(); 
     } 
-    elevatorEncoder.reset();
+
     scoringSubsystem.Activated(false);
     scoringSubsystem.StopAll();
    }
