@@ -192,15 +192,17 @@ public class Robot extends TimedRobot {
     // System.out.println(skullcrushEncoder.get());
     // System.out.println(skullcrushEncoder.isConnected());
     // System.out.println(armError);
-     if (driver.getPOV() == 270) {
-         isEnabled = true;
-    }
-    if (driver.getPOV() == 90){
-        isEnabled = false;
-    }
-if (limeLight.hasTarget()) {
-    if (limeLight.getYOffset() <= 5 && limeLight.getYOffset() >= -5 
-        && limeLight.getXOffset() < 5 && limeLight.getXOffset() > -5) {
+    //  if (driver.getPOV() == 270) {
+    //      isEnabled = true;
+    // }
+    // if (driver.getPOV() == 90){
+    //     isEnabled = false;
+    // }
+    isEnabled = driver.getPOV == 270
+if (isEnabled){
+  if (limeLight.hasTarget()) {
+    if (Math.abs(limeLight.getYOffset()) <= 5 && Math.abs(limeLight.getXOffset()) <= 5)
+ {
         NamedCommands.getCommand("StopMovement").schedule();  // Stop all actions
         isEnabled = false;
     }
@@ -217,6 +219,8 @@ if (limeLight.hasTarget()) {
         NamedCommands.getCommand("MoveLeft1M").schedule();  // Schedule move left
     }
 }
+}
+
     //torquer
     if (driver.getRawButton(PS4Controller.Button.kCircle.value)){
       Torquer.set(.25);
