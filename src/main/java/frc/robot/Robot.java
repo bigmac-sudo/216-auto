@@ -198,7 +198,11 @@ public class Robot extends TimedRobot {
     // if (driver.getPOV() == 90){
     //     isEnabled = false;
     // }
-    isEnabled = driver.getPOV == 270
+   if( driver.getPOV == 270){
+     isEnabled = true
+       } else if (driver.getPOV == 90){
+     isEnabled = false
+       }
 if (isEnabled){
   if (limeLight.hasTarget()) {
     if (Math.abs(limeLight.getYOffset()) <= 5 && Math.abs(limeLight.getXOffset()) <= 5)
